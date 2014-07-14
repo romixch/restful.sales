@@ -2,8 +2,10 @@ package ch.romix.restful.sales.api;
 
 import java.net.URI;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +18,7 @@ import javax.ws.rs.core.Response;
 import ch.romix.restful.sales.logic.Data;
 import ch.romix.restful.sales.model.CustomerEntity;
 import ch.romix.restful.sales.model.EnhancedMapper;
+import ch.romix.restful.sales.model.OrderEntity;
 
 @Path("/customers")
 public class CustomerREST {
@@ -32,15 +35,32 @@ public class CustomerREST {
   @Path("{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getCustomer(@PathParam("id") String id) {
-    CustomerEntity customer = Data.INSTANCE.getCustomer(Long.parseLong(id));
-    return Response.ok(customer).build();
+    CustomerEntity customerEntity = Data.INSTANCE.getCustomer(Long.parseLong(id));
+    CustomerDTO dto = EnhancedMapper.map(customerEntity, CustomerDTO.class);
+    return Response.ok(dto).build();
   }
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)
-  public Response addCustomer(CustomerEntity customer) {
-    Data.INSTANCE.addCustomer(customer);
-    URI location = URI.create(String.valueOf(customer.getId()));
+  public Response addCustomer(CustomerDTO dto) {
+    CustomerEntity customerEntity = EnhancedMapper.map(dto, CustomerEntity.class);
+    Data.INSTANCE.addCustomer(customerEntity);
+    URI location = URI.create(String.valueOf(customerEntity.getId()));
     return Response.created(location).build();
+  }
+
+  @GET
+  @Path("{id}/orders")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getOrders(@PathParam("id") String idAsString) {
+    final long customerId = Long.parseLong(idAsString);
+    Collection<OrderEntity> orders = Data.INSTANCE.getOrders();
+    List<OrderLink> customerOrders = new ArrayList<OrderLink>();
+    for (OrderEntity orderEntity : orders) {
+      if (orderEntity.getCustomerId() == customerId) {
+        customerOrders.add(EnhancedMapper.map(orderEntity, OrderLink.class));
+      }
+    }
+    return Response.ok(customerOrders).build();
   }
 }
