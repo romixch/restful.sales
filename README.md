@@ -33,11 +33,16 @@ There must be a one to one relationship between resource and URL. Otherwise cach
 ###Use http caching features###
 At certain places there are different caching strategies implemented. Here is an index for you to quickly look up:
 
-####expires: GET /api/orders####
-This is the simplest caching possibility. The resource behind /api/orders can be cached for five seconds. Each request within those
-five seconds will be cached directly in the client. There is no subsequent server call until the cache has expired.
+####expires: GET /api/customer/{id}####
+This is the simplest caching possibility. The resource behind /api/customer/{id} can be cached for ten seconds. Each request 
+within those ten seconds will be cached directly in the client. There is no subsequent server call until the cache has expired.
 
-####Using ETags: Not yet implemented####
+####Using ETags: GET /api/orders/{id}####
+An ETag is usually a hash of the resource. The first response of such a resource contains the ETag in the header. The next 
+request to the same response sends the ETag back to the server. The sent ETag is compared with the hash value of the resource
+at the server. If both are the same, the server just sends 304 NotModified to the client. The resource must only be included
+in the body if there has something changed meaning the server has a more recent representation of the resource than the client.
+See OrderREST for implementation details.
 
 ####Using Last modification: Not yet implemented####
 

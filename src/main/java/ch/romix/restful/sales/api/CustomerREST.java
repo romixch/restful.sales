@@ -37,7 +37,7 @@ public class CustomerREST {
   public Response getCustomer(@PathParam("id") String id) {
     CustomerEntity customerEntity = Data.INSTANCE.getCustomer(Long.parseLong(id));
     CustomerDTO dto = EnhancedMapper.map(customerEntity, CustomerDTO.class);
-    return Response.ok(dto).build();
+    return Response.ok(dto).expires(Date.from(Instant.now().plusSeconds(10))).build();
   }
 
   @POST
