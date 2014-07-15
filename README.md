@@ -30,7 +30,16 @@ can make changes to your entities and don't affect the REST API. I use Dozer to 
 ###Each resource has exactly one URL###
 There must be a one to one relationship between resource and URL. Otherwise caching becomes impossible or extremely complicated.
 
-###Use http caching features###
+###Use HTTP status codes###
+Responses use the right HTTP response codes.
+
+###Use HTTP verbs###
+GET, PUT, POST, DELETE are used how it is described in the Richardsons Maturity Model Level 2.
+
+###Make API explorable and provide links###
+A client only needs to know the entry point of the applications. All other resource URIs and transitions are provided by the server.
+
+###Use HTTP caching features###
 At certain places there are different caching strategies implemented. Here is an index for you to quickly look up:
 
 ####expires: GET /api/customer/{id}####
