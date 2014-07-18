@@ -8,10 +8,9 @@ RESTful API.
 I recommend to use eclipse to mess around with the project. Clone it from GitHub, start maven build and run the main class 
 `ch.romix.restful.sales.Main`. Now can explore the API using a web browser. I would even recommend a REST client like the chrome
 app [Advanced Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=de&utm_source=chrome-ntp-launcher).
-The embedded Jetty server runs on port 8080. Start with one of the following URLs:
+The embedded Jetty server runs on port 8080. Start with following URL:
 
-* [http://localhost:8080/api/orders/](http://localhost:8080/api/orders/)
-* [http://localhost:8080/api/customers/](http://localhost:8080/api/customers/)
+* [http://localhost:8080/api/](http://localhost:8080/api/)
 
 ##Domain model##
 Currently there are three entities:
