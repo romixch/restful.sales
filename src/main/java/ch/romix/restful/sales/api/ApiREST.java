@@ -20,7 +20,7 @@ public class ApiREST {
         .expires(Date.from(Instant.now().plus(1, ChronoUnit.HOURS))).build();
   }
 
-  private static final class Dictionary {
+  public static final class Dictionary {
     public String getOrders() {
       return "/api/orders";
     }

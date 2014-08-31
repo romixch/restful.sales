@@ -5,12 +5,12 @@
     http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
 
-	<!-- A JPA Persistence Unit -->
 	<persistence-unit name="sales" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<!-- JPA entities must be registered here -->
 		<class>ch.romix.restful.sales.model.CustomerEntity</class>
+		<class>ch.romix.restful.sales.model.OrderEntity</class>
+		<class>ch.romix.restful.sales.model.PositionEntity</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

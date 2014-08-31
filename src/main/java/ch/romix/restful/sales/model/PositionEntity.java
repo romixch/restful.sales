@@ -1,19 +1,30 @@
 package ch.romix.restful.sales.model;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class PositionEntity {
 
-  private long orderId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
+  @ManyToOne(fetch = FetchType.EAGER)
+  private OrderEntity order;
   private long articleId;
   private long amount;
   private String unit;
 
-  public long getOrderId() {
-    return orderId;
+  public OrderEntity getOrder() {
+    return order;
   }
 
-  public void setOrderId(long orderId) {
-    this.orderId = orderId;
+  public void setOrder(OrderEntity order) {
+    this.order = order;
   }
 
   public long getId() {

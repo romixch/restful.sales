@@ -32,7 +32,7 @@ public class Data {
     addOrder(order);
 
     PositionEntity position = new PositionEntity();
-    position.setOrderId(order.getId());
+    position.setOrder(order);
     position.setId(10);
     position.setArticleId(42);
     position.setAmount(3);
@@ -69,7 +69,7 @@ public class Data {
   }
 
   public void addPosition(PositionEntity position) {
-    OrderEntity order = orders.get(position.getOrderId());
+    OrderEntity order = orders.get(position.getOrder().getId());
     order.getPositions().add(position);
   }
 }

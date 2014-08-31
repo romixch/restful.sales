@@ -3,6 +3,7 @@ package ch.romix.restful.sales.api;
 import java.net.URI;
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,12 +18,17 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import ch.romix.restful.sales.logic.Data;
+import ch.romix.restful.sales.logic.SalesService;
 import ch.romix.restful.sales.model.EnhancedMapper;
 import ch.romix.restful.sales.model.OrderEntity;
 import ch.romix.restful.sales.model.PositionEntity;
 
 @Path("/orders")
 public class OrderREST {
+
+  @Inject
+  private SalesService salesService;
+
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response getOrders() {
@@ -36,6 +42,7 @@ public class OrderREST {
   @Produces(MediaType.APPLICATION_JSON)
   public Response getOrder(@PathParam("id") String id, @Context Request request) {
     OrderEntity order = Data.INSTANCE.getOrder(Long.parseLong(id));
+    order = salesService.getOrder(Long.parseLong(id));
     OrderDTO orderDTO = EnhancedMapper.map(order, OrderDTO.class);
     Collection<PositionLink> positions =
         EnhancedMapper.map(order.getPositions(), PositionLink.class);
@@ -77,7 +84,6 @@ public class OrderREST {
   @Produces(MediaType.APPLICATION_JSON)
   public Response addPosition(@PathParam("id") String orderId, PositionDTO position) {
     PositionEntity entity = EnhancedMapper.map(position, PositionEntity.class);
-    entity.setOrderId(Long.parseLong(orderId));
     Data.INSTANCE.addPosition(entity);
     URI location = URI.create(String.valueOf(entity.getId()));
     return Response.created(location).build();
