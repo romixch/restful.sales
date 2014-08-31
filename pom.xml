@@ -10,14 +10,15 @@
 
 	<properties>
 		<jetty.version>9.2.1.v20140609</jetty.version>
-		<jersey.version>2.0</jersey.version>
-		<hk2.version>2.1.88</hk2.version>
+		<jersey.version>2.11</jersey.version>
+		<hk2.version>2.3.0-b05</hk2.version>
 		<hibernate.version>4.3.6.Final</hibernate.version>
 		<jpa.version>1.0.1.Final</jpa.version>
 		<h2.version>1.4.181</h2.version>
-		<fasterxml.version>2.2.3</fasterxml.version>
+		<fasterxml.version>2.3.2</fasterxml.version>
 		<dozer.version>5.4.0</dozer.version>
 		<junit.version>4.11</junit.version>
+		<aop.version>1.0</aop.version>
 	</properties>
 
 	<dependencies>
@@ -26,6 +27,12 @@
 			<artifactId>hk2-api</artifactId>
 			<version>${hk2.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<version>${aop.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>

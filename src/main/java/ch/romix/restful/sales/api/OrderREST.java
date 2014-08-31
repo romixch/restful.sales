@@ -32,7 +32,7 @@ public class OrderREST {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response getOrders() {
-    Collection<OrderEntity> orders = Data.INSTANCE.getOrders();
+    Collection<OrderEntity> orders = salesService.getAllOrders();
     Collection<OrderLink> orderList = EnhancedMapper.map(orders, OrderLink.class);
     return Response.ok(orderList).build();
   }
@@ -41,8 +41,7 @@ public class OrderREST {
   @Path("{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getOrder(@PathParam("id") String id, @Context Request request) {
-    OrderEntity order = Data.INSTANCE.getOrder(Long.parseLong(id));
-    order = salesService.getOrder(Long.parseLong(id));
+    OrderEntity order = salesService.getOrder(Long.parseLong(id));
     OrderDTO orderDTO = EnhancedMapper.map(order, OrderDTO.class);
     Collection<PositionLink> positions =
         EnhancedMapper.map(order.getPositions(), PositionLink.class);
@@ -64,7 +63,7 @@ public class OrderREST {
   @Produces(MediaType.APPLICATION_JSON)
   public Response addOrder(OrderDTO orderDTO) {
     OrderEntity orderEntity = EnhancedMapper.map(orderDTO, OrderEntity.class);
-    Data.INSTANCE.addOrder(orderEntity);
+    salesService.saveOrder(orderEntity);
     URI location = URI.create(String.valueOf(orderEntity.getId()));
     return Response.created(location).build();
   }

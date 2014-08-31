@@ -70,6 +70,6 @@ public class Data {
 
   public void addPosition(PositionEntity position) {
     OrderEntity order = orders.get(position.getOrder().getId());
-    order.getPositions().add(position);
+    order.addPosition(position);
   }
 }

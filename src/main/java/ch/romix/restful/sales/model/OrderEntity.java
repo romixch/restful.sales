@@ -1,6 +1,7 @@
 package ch.romix.restful.sales.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -44,6 +45,13 @@ public class OrderEntity {
 
   public Collection<PositionEntity> getPositions() {
     return positions;
+  }
+
+  public void addPosition(PositionEntity positionEntity) {
+    if (positions == null) {
+      positions = new ArrayList<PositionEntity>();
+    }
+    positions.add(positionEntity);
   }
 
 }

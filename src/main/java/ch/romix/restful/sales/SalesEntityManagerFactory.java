@@ -11,6 +11,8 @@ import org.glassfish.hk2.api.Factory;
 import org.glassfish.jersey.server.CloseableService;
 
 public class SalesEntityManagerFactory implements Factory<EntityManager> {
+  static final ThreadLocal<EntityManager> ENTITY_MANAGERS = new ThreadLocal<>();
+
   private final CloseableService closeableService;
   EntityManagerFactory emf;
 
@@ -23,15 +25,18 @@ public class SalesEntityManagerFactory implements Factory<EntityManager> {
   @Override
   public void dispose(EntityManager em) {
     em.close();
+    ENTITY_MANAGERS.remove();
   }
 
   @Override
   public EntityManager provide() {
     final EntityManager em = emf.createEntityManager();
+    ENTITY_MANAGERS.set(em);
     closeableService.add(new Closeable() {
       @Override
       public final void close() {
         em.close();
+        ENTITY_MANAGERS.remove();
       }
     });
     return em;
