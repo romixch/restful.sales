@@ -14,7 +14,7 @@
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:h2:./db" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:./db/db" />
 			<!-- property name="hibernate.hbm2ddl.auto" value="create-drop" / -->
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
