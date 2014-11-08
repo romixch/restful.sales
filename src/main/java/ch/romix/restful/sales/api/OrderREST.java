@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import ch.romix.restful.sales.logic.Data;
 import ch.romix.restful.sales.logic.SalesService;
 import ch.romix.restful.sales.model.EnhancedMapper;
 import ch.romix.restful.sales.model.OrderEntity;
@@ -72,8 +71,7 @@ public class OrderREST {
   @Path("{id}/positions")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getPositions(@PathParam("id") String orderId) {
-    OrderEntity order = Data.INSTANCE.getOrder(Long.parseLong(orderId));
-    Collection<PositionEntity> positions = order.getPositions();
+    Collection<PositionEntity> positions = salesService.getPositions(Long.parseLong(orderId));
     Collection<PositionLink> positionsLinks = EnhancedMapper.map(positions, PositionLink.class);
     return Response.ok(positionsLinks).build();
   }
@@ -82,9 +80,11 @@ public class OrderREST {
   @Path("{id}/positions")
   @Produces(MediaType.APPLICATION_JSON)
   public Response addPosition(@PathParam("id") String orderId, PositionDTO position) {
-    PositionEntity entity = EnhancedMapper.map(position, PositionEntity.class);
-    Data.INSTANCE.addPosition(entity);
-    URI location = URI.create(String.valueOf(entity.getId()));
+    PositionEntity pos = EnhancedMapper.map(position, PositionEntity.class);
+    OrderEntity order = salesService.getOrder(Long.parseLong(orderId));
+    pos.setOrder(order);
+    salesService.savePosition(pos);
+    URI location = URI.create(String.valueOf(pos.getId()));
     return Response.created(location).build();
   }
 
@@ -92,7 +92,7 @@ public class OrderREST {
   @Path("{orderId}/positions/{posId}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getPosition(@PathParam("orderId") String orderId, @PathParam("posId") String posId) {
-    OrderEntity order = Data.INSTANCE.getOrder(Long.parseLong(orderId));
+    OrderEntity order = salesService.getOrder(Long.parseLong(orderId));
     Collection<PositionEntity> positions = order.getPositions();
     PositionDTO positionDTO = null;
     for (PositionEntity positionEntity : positions) {
