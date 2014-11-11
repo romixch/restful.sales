@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.logic;
+package ch.romix.restful.sales.services;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package ch.romix.restful.sales;
+package ch.romix.restful.sales.utils.persistence;
 
 import java.io.Closeable;
 

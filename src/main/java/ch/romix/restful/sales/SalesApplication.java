@@ -8,7 +8,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class SalesApplication extends ResourceConfig {
   @Inject
   public SalesApplication(ServiceLocator serviceLocator) {
-    System.out.println("Registering injectables...");
     register(new SalesBinder());
     packages("ch.romix.restful.sales");
   }

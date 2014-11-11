@@ -17,10 +17,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import ch.romix.restful.sales.logic.SalesService;
-import ch.romix.restful.sales.model.EnhancedMapper;
 import ch.romix.restful.sales.model.OrderEntity;
 import ch.romix.restful.sales.model.PositionEntity;
+import ch.romix.restful.sales.services.SalesService;
+import ch.romix.restful.sales.utils.EnhancedMapper;
 
 @Path("/orders")
 public class OrderREST {

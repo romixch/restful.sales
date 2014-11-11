@@ -16,11 +16,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import ch.romix.restful.sales.logic.CustomerService;
-import ch.romix.restful.sales.logic.SalesService;
 import ch.romix.restful.sales.model.CustomerEntity;
-import ch.romix.restful.sales.model.EnhancedMapper;
 import ch.romix.restful.sales.model.OrderEntity;
+import ch.romix.restful.sales.services.CustomerService;
+import ch.romix.restful.sales.services.SalesService;
+import ch.romix.restful.sales.utils.EnhancedMapper;
 
 @Path("/customers")
 public class CustomerREST {

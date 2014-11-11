@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.model;
+package ch.romix.restful.sales.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;

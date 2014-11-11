@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ch.romix.restful.sales.model.EnhancedMapper;
 import ch.romix.restful.sales.model.OrderEntity;
+import ch.romix.restful.sales.utils.EnhancedMapper;
 
 public class OrderDTOMappingTest {
 
