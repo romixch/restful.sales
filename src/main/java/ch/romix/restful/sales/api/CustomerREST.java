@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,7 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import ch.romix.restful.sales.logic.Data;
+import ch.romix.restful.sales.logic.CustomerService;
+import ch.romix.restful.sales.logic.SalesService;
 import ch.romix.restful.sales.model.CustomerEntity;
 import ch.romix.restful.sales.model.EnhancedMapper;
 import ch.romix.restful.sales.model.OrderEntity;
@@ -23,10 +25,15 @@ import ch.romix.restful.sales.model.OrderEntity;
 @Path("/customers")
 public class CustomerREST {
 
+  @Inject
+  private CustomerService customerService;
+  @Inject
+  private SalesService salesService;
+
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response getCustomers() {
-    Collection<CustomerEntity> customers = Data.INSTANCE.getCustomers();
+    Collection<CustomerEntity> customers = customerService.getCustomers();
     Collection<CustomerLink> cusList = EnhancedMapper.map(customers, CustomerLink.class);
     return Response.ok(cusList).expires(Date.from(Instant.now().plusSeconds(5))).build();
   }
@@ -35,7 +42,7 @@ public class CustomerREST {
   @Path("{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getCustomer(@PathParam("id") String id) {
-    CustomerEntity customerEntity = Data.INSTANCE.getCustomer(Long.parseLong(id));
+    CustomerEntity customerEntity = customerService.getCustomer(Long.parseLong(id));
     CustomerDTO dto = EnhancedMapper.map(customerEntity, CustomerDTO.class);
     return Response.ok(dto).expires(Date.from(Instant.now().plusSeconds(10))).build();
   }
@@ -44,7 +51,7 @@ public class CustomerREST {
   @Produces(MediaType.APPLICATION_JSON)
   public Response addCustomer(CustomerDTO dto) {
     CustomerEntity customerEntity = EnhancedMapper.map(dto, CustomerEntity.class);
-    Data.INSTANCE.addCustomer(customerEntity);
+    customerEntity = customerService.addCustomer(customerEntity);
     URI location = URI.create(String.valueOf(customerEntity.getId()));
     return Response.created(location).build();
   }
@@ -52,9 +59,9 @@ public class CustomerREST {
   @GET
   @Path("{id}/orders")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response getOrders(@PathParam("id") String idAsString) {
-    final long customerId = Long.parseLong(idAsString);
-    Collection<OrderEntity> orders = Data.INSTANCE.getOrders();
+  public Response getOrders(@PathParam("id") String customerIdAsString) {
+    final long customerId = Long.parseLong(customerIdAsString);
+    Collection<OrderEntity> orders = salesService.getAllOrders();
     List<OrderLink> customerOrders = new ArrayList<OrderLink>();
     for (OrderEntity orderEntity : orders) {
       if (orderEntity.getCustomerId() == customerId) {

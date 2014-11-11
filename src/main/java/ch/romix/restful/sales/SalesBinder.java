@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import org.glassfish.hk2.api.InterceptionService;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
+import ch.romix.restful.sales.logic.CustomerService;
 import ch.romix.restful.sales.logic.SalesService;
 
 public class SalesBinder extends AbstractBinder {
@@ -15,6 +16,7 @@ public class SalesBinder extends AbstractBinder {
     this.bind(TransactionalInterceptionService.class).to(InterceptionService.class)
         .in(Singleton.class);
     this.bindFactory(SalesEntityManagerFactory.class).to(EntityManager.class);
+    this.bind(CustomerService.class).to(CustomerService.class);
     this.bind(SalesService.class).to(SalesService.class);
   }
 
