@@ -8,18 +8,18 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.glassfish.hk2.api.Factory;
+import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.CloseableService;
 
 public class SalesEntityManagerFactory implements Factory<EntityManager> {
   static final ThreadLocal<EntityManager> ENTITY_MANAGERS = new ThreadLocal<>();
+  private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("sales");
 
   private final CloseableService closeableService;
-  EntityManagerFactory emf;
 
   @Inject
   public SalesEntityManagerFactory(CloseableService closeableService) {
     this.closeableService = closeableService;
-    emf = Persistence.createEntityManagerFactory("sales");
   }
 
   @Override
@@ -29,7 +29,15 @@ public class SalesEntityManagerFactory implements Factory<EntityManager> {
   }
 
   @Override
+  @RequestScoped
   public EntityManager provide() {
+    if (ENTITY_MANAGERS.get() == null) {
+      createEntityManager();
+    }
+    return ENTITY_MANAGERS.get();
+  }
+
+  private void createEntityManager() {
     final EntityManager em = emf.createEntityManager();
     ENTITY_MANAGERS.set(em);
     closeableService.add(new Closeable() {
@@ -39,6 +47,5 @@ public class SalesEntityManagerFactory implements Factory<EntityManager> {
         ENTITY_MANAGERS.remove();
       }
     });
-    return em;
   }
 }
