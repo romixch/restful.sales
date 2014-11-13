@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.api;
+package ch.romix.restful.sales.order;
 
 import java.util.Collection;
 

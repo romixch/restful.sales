@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.api;
+package ch.romix.restful.sales;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

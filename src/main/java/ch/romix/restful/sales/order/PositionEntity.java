@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.model;
+package ch.romix.restful.sales.order;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

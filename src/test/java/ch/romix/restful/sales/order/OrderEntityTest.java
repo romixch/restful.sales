@@ -1,8 +1,11 @@
-package ch.romix.restful.sales.model;
+package ch.romix.restful.sales.order;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import ch.romix.restful.sales.order.OrderEntity;
+import ch.romix.restful.sales.order.PositionEntity;
 
 public class OrderEntityTest {
 

@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.services;
+package ch.romix.restful.sales.order;
 
 import java.util.List;
 
@@ -8,10 +8,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
-import ch.romix.restful.sales.model.OrderEntity;
-import ch.romix.restful.sales.model.PositionEntity;
-
-public class SalesService {
+public class OrderService {
 
   @Inject
   private EntityManager em;

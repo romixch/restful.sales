@@ -1,11 +1,12 @@
-package ch.romix.restful.sales.api;
+package ch.romix.restful.sales.order;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ch.romix.restful.sales.model.OrderEntity;
-import ch.romix.restful.sales.model.PositionEntity;
+import ch.romix.restful.sales.order.OrderEntity;
+import ch.romix.restful.sales.order.PositionEntity;
+import ch.romix.restful.sales.order.PositionLink;
 import ch.romix.restful.sales.utils.EnhancedMapper;
 
 public class PositionDTOMappingTest {

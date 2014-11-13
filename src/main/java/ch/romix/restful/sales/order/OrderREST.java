@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.api;
+package ch.romix.restful.sales.order;
 
 import java.net.URI;
 import java.util.Collection;
@@ -17,16 +17,13 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import ch.romix.restful.sales.model.OrderEntity;
-import ch.romix.restful.sales.model.PositionEntity;
-import ch.romix.restful.sales.services.SalesService;
 import ch.romix.restful.sales.utils.EnhancedMapper;
 
 @Path("/orders")
 public class OrderREST {
 
   @Inject
-  private SalesService salesService;
+  private OrderService salesService;
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

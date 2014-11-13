@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.services;
+package ch.romix.restful.sales.customer;
 
 import java.util.Collection;
 
@@ -6,8 +6,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
-
-import ch.romix.restful.sales.model.CustomerEntity;
 
 public class CustomerService {
 

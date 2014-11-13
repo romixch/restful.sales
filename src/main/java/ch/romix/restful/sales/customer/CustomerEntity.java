@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.model;
+package ch.romix.restful.sales.customer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

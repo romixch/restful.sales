@@ -1,4 +1,4 @@
-package ch.romix.restful.sales.model;
+package ch.romix.restful.sales.order;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
