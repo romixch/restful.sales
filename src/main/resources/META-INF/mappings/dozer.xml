@@ -5,8 +5,8 @@
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
           
   <mapping> 
-    <class-a>ch.romix.restful.sales.model.PositionEntity</class-a>
-    <class-b>ch.romix.restful.sales.api.PositionLink</class-b>   
+    <class-a>ch.romix.restful.sales.order.PositionEntity</class-a>
+    <class-b>ch.romix.restful.sales.order.PositionLink</class-b>   
     <field>
       <a>order.id</a>
       <b>orderId</b>
