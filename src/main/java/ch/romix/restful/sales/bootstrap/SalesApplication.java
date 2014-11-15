@@ -1,4 +1,4 @@
-package ch.romix.restful.sales;
+package ch.romix.restful.sales.bootstrap;
 
 import javax.inject.Inject;
 
